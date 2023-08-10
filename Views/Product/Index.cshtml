@@ -1,0 +1,51 @@
+@model IEnumerable<ProductModel>
+
+@{
+    ViewBag.Subtitle = "List of product";
+}
+
+<header class="d-flex justify-content-between align-items-center">
+    <div>
+        <h1 class="text-primary">@ViewBag.Subtitle</h1>
+    </div>
+    <div>
+        <a asp-action="Register" class="btn btn-primary">New Product</a>
+    </div>
+</header>
+<hr>
+
+<partial name="_Message"></partial>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped table-product">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <body>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Category!.Name</td>
+                    <td>@product.Stock.ToString("D4")</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>
+                        <a asp-action="Register" asp-route-id="@product.IdProduct" class="btn btn-sm btn-secondary">Update</a>
+                        <a asp-action="Delete" asp-route-id="@product.IdProduct" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </body>
+    </table>
+}
+else
+{
+    <a>No Product have been created</a>
+}

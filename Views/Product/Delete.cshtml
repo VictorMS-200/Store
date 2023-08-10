@@ -1,0 +1,17 @@
+@model ProductModel
+@{
+    ViewBag.Subtitle = "Product deletion";
+}
+
+<h1 class="text-primary">@ViewBag.Subtitle</h1>
+<hr>
+<h4>Would you like to remove the product
+    <span class="text-danger">@Model.Name</span>?</h4>
+
+<form asp-action="Delete" class="w-25">
+    <input type="hidden" asp-for="@Model.IdProduct">
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-success">Back</a>
+        <button class="btn btn-danger" type="submit">Delete</button>
+    </div>
+</form>

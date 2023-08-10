@@ -1,0 +1,27 @@
+@model CategoryModel
+@{
+    if (Context.Request.RouteValues.ContainsKey("id"))
+    {
+        ViewBag.Subtitle = "Category update";
+    }
+    else
+    {
+        ViewBag.Subtitle = "Create a category";
+    }
+}
+
+<h1 class="text-primary">@ViewBag.Subtitle</h1>
+<hr>
+
+<form asp-action="Register" class="row">
+    <input type="hidden" asp-for="@Model.IdCategory">
+    <div class="form-group col-sm-8 col-lg-4">
+        <label asp-for="@Model.Name">Name:</label><br>
+        <input asp-for="@Model.Name" class="form-control" autofocus>
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+    </div>
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+</form>

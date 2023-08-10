@@ -1,0 +1,21 @@
+.table-category tr > th:last-child,
+.table-category tr > td:last-child
+{
+    width: 1%;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* .table-product tr > th:last-child,
+.table-product tr > td:last-child,
+.table-product tr > th:nth-child(3),
+.table-product tr > td:nth-child(3),
+.table-product tr > th:nth-child(4),
+.table-product tr > td:nth-child(4) */
+.table-product tr > th:last-child,
+.table-product tr > td:last-child
+{
+    width: 1%;
+    white-space: nowrap;
+    text-align: center;
+}
