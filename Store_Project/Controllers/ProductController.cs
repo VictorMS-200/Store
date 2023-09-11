@@ -127,7 +127,7 @@ public class ProductController : Controller
         }
         else
         {
-            TempData["message"] = MessageModel.Serializer("Product not found.");
+            TempData["message"] = MessageModel.Serializer("Product not found.", TypeMessage.Error);
         }
         return RedirectToAction("Index");
     }

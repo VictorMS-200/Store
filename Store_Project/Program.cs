@@ -4,6 +4,7 @@ using Store.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
 builder.Services.AddDbContext<StoreWebContext>(opts =>
     opts.UseSqlite(builder.Configuration.GetConnectionString("StoreWebContext")));
 

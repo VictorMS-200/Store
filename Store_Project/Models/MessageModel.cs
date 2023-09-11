@@ -11,7 +11,7 @@ public enum TypeMessage
 public class MessageModel
 {
     public TypeMessage Type { get; set; }
-    public string? Text { get; set; }
+    public string Text { get; set; }
 
     public MessageModel(string message, TypeMessage type = TypeMessage.Info)
     {

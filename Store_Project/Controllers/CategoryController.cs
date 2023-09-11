@@ -120,7 +120,7 @@ public class CategoryController : Controller
         }
         else
         {
-            TempData["message"] = MessageModel.Serializer("Category not found.");
+            TempData["message"] = MessageModel.Serializer("Category not found.", TypeMessage.Error);
         }
         return RedirectToAction("Index");
     }

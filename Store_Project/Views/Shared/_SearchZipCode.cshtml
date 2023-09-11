@@ -1,0 +1,90 @@
+@* https://cdnjs.com/libraries/jquery *@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+@* https://viaZipCode.com.br/example/jquery/ *@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        function Clear_data() {
+            
+            // Clear all data from form
+            $("#Street").val('');
+            $("#Neighborhood").val('');
+            $("#City").val('');
+            $("#State").val('');
+            $("#address").text('Write a valid zipcode and wait...');
+            
+            // Show the invalid ZipCode icon
+            $("#ZipCode_none").removeClass("d-none");
+            $("#ZipCode_loading").addClass("d-none");
+            $("#ZipCode_checked").addClass("d-none");
+        }
+
+        function search_ZipCode() {
+
+            // New variable "ZipCode" only with digits.
+            var ZipCode = $("#ZipCode").val().replace(/\D/g, '');
+
+            if (ZipCode != "") {
+                
+                // Regular expression for ZipCode validation.
+                var validaZipCode = /^[0-9]{8}$/;
+
+                // Validate ZipCode format.
+                if (validaZipCode.test(ZipCode)) {
+                    
+                    // Show the loading icon
+                    $("#ZipCode_none").addClass("d-none");
+                    $("#ZipCode_loading").removeClass("d-none");
+                    $("#ZipCode_checked").addClass("d-none");
+
+                    // Get JSON data from viaZipCode.com.br
+                    $.getJSON("https://viacep.com.br/ws/" + ZipCode + "/json/?callback=?", function (data) {
+
+                        // Show the checked icon
+                        $("#ZipCode_none").addClass("d-none");
+                        $("#ZipCode_loading").addClass("d-none");
+                        $("#ZipCode_checked").removeClass("d-none");
+
+
+                        if (!("erro" in data)) {
+                            
+                            // Update the form with ZipCode data from viaZipCode.com.br
+                            $("#Street").val(data.logradouro);
+                            $("#Neighborhood").val(data.bairro);
+                            $("#City").val(data.localidade);
+                            $("#State").val(data.uf);
+                            $("#address").text(data.logradouro + ", " +
+                                data.bairro + ", " + data.localidade + ", " + data.uf + ".");
+                        } 
+                        else {
+                            
+                            // Show if ZipCode not found
+                            Clear_data();
+                            $("#address").text("ZipCode not found.");
+                        }
+                    });
+                } 
+
+                // If ZipCode is empty, clear all data from form
+                else {
+                    Clear_data();
+                    $("#address").text("ZipCode invalid.");
+                }
+            } //end if.
+            else {
+
+                //ZipCode sem valor, limpa formulário.
+                Clear_data();
+                $("#address").text("Write a valid zipcode and wait...");
+            }
+        };
+
+        // When the ZipCode field loses focus, search the ZipCode
+        $("#ZipCode").blur(search_ZipCode);
+        search_ZipCode();
+    });
+</script>

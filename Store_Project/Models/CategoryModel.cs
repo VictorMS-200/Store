@@ -8,5 +8,7 @@ public class CategoryModel
     public int IdCategory { get; set; }
     
     [Required, MaxLength(128)]
-    public string? Name { get; set; }
+    public string Name { get; set; }
+
+    public ICollection<ProductModel> Products { get; set; }
 }

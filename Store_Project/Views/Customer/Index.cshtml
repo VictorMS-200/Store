@@ -1,0 +1,52 @@
+@model IEnumerable<CustomerModel>
+
+@{
+    ViewBag.Subtitle = "List of customers";
+}
+
+<header class="d-flex justify-content-between align-items-center">
+    <div>
+        <h1 class="text-primary">@ViewBag.Subtitle</h1>
+    </div>
+    <div>
+        <a asp-action="Register" class="btn btn-primary">New Customer</a>
+    </div>
+</header>
+<hr>
+
+<partial name="_Message"></partial>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped table-customer">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>CPF</th>
+                <th>Age</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <body>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.Name</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.CPF</td>
+                    <td>@customer.Age</td>
+                    <td>
+                        <a asp-action="Index" asp-controller="Address" asp-route-cid="@customer.IdUser" class="btn btn-sm btn-secondary">Address</a>
+                        <a asp-action="Register" asp-route-id="@customer.IdUser" class="btn btn-sm btn-secondary">Update</a>
+                        <a asp-action="Delete" asp-route-id="@customer.IdUser" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </body>
+    </table>
+}
+else
+{
+    <a>No customer have been created!</a>
+}
